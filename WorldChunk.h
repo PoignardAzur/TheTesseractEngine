@@ -5,6 +5,7 @@
 #include <OgreSceneNode.h>
 
 constexpr size_t CHUNK_SIZE = 16;
+constexpr size_t BLOCK_SIZE = 10;
 
 enum class BlockType
 {
@@ -28,6 +29,7 @@ public:
 
 private:
     BlockType m_blockIds[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE];
+    Ogre::SceneNode* m_blockNodes[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE];
 
     Ogre::SceneNode* m_chunkNode;
 };
