@@ -142,11 +142,16 @@ void EnvGameScene::createScene(void)
         for (int j = 0; j < 10; ++j)
         {
             if (i == j)
-            continue;
-
+            {
+                m_world->setBlock(i, 1, j, BlockType::STONE);
+            }
             m_world->setBlock(i, 0, j, BlockType::DIRT);
         }
     }
+    m_world->setBlock(2, 0, 6, BlockType::AIR);
+    m_world->setBlock(2, 0, 7, BlockType::AIR);
+    m_world->setBlock(3, 0, 6, BlockType::AIR);
+    m_world->setBlock(3, 0, 7, BlockType::AIR);
 }
 
 void EnvGameScene::close()

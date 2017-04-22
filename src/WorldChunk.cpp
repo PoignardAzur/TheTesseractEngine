@@ -52,6 +52,14 @@ void WorldChunk::setBlock(size_t x, size_t y, size_t z, BlockType newBlock)
             );
             assert(blockEntity);
         }
+        if (newBlock == BlockType::STONE)
+        {
+            blockEntity->setMaterialName("Cube/Stone");
+        }
+        else
+        {
+            blockEntity->setMaterialName("Cube/Dirt");
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-material Cube/Dirt
+material Cube/Stone
 {
   technique
   {
@@ -6,7 +6,7 @@ material Cube/Dirt
     {
       texture_unit
       {
-        texture dirt.png
+        texture stone.png
       }
     }
   }
