@@ -26,7 +26,7 @@ public:
     Ogre::SceneNode* getChunkNode();
     const Ogre::SceneNode* getChunkNode() const;
 
-    void removeBlock(Ogre::Vector3 fromPos, Ogre::Quaternion dir);
+    void removeBlock(Ogre::Vector3 fromPos, Ogre::Vector3 dir);
 
 private:
     BlockType m_blockIds[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE];
