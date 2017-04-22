@@ -4,77 +4,61 @@
 #include <OgreEntity.h>
 #include <cassert>
 
-WorldChunk::WorldChunk(Ogre::SceneNode* chunkNode, Ogre::SceneManager* sceneManager)
-{
-    for (auto& block : m_blockIds)
-    {
+WorldChunk::WorldChunk(Ogre::SceneNode *chunkNode, Ogre::SceneManager *sceneManager) {
+    for (auto &block : m_blockIds) {
         block = BlockType::AIR;
     }
-    for (auto& node : m_blockNodes)
-    {
+    for (auto &node : m_blockNodes) {
         node = nullptr;
     }
     m_chunkNode = chunkNode;
     m_sceneManager = sceneManager;
 }
 
-BlockType WorldChunk::getBlock(size_t x, size_t y, size_t z) const
-{
+BlockType WorldChunk::getBlock(size_t x, size_t y, size_t z) const {
     return m_blockIds[x + y * CHUNK_SIZE + z * CHUNK_SIZE * CHUNK_SIZE];
 }
 
-void WorldChunk::setBlock(size_t x, size_t y, size_t z, BlockType newBlock)
-{
+void WorldChunk::setBlock(size_t x, size_t y, size_t z, BlockType newBlock) {
     m_blockIds[x + y * CHUNK_SIZE + z * CHUNK_SIZE * CHUNK_SIZE] = newBlock;
-    Ogre::SceneNode*& blockNode = m_blockNodes[x + y * CHUNK_SIZE + z * CHUNK_SIZE * CHUNK_SIZE];
+    Ogre::SceneNode *&blockNode = m_blockNodes[x + y * CHUNK_SIZE + z * CHUNK_SIZE * CHUNK_SIZE];
 
-    if (blockNode && newBlock == BlockType::AIR)
-    {
+    if (blockNode && newBlock == BlockType::AIR) {
         m_chunkNode->removeChild(blockNode);
     }
-    if (newBlock != BlockType::AIR)
-    {
-        Ogre::Entity* blockEntity;
+    if (newBlock != BlockType::AIR) {
+        Ogre::Entity *blockEntity;
 
-        if (!blockNode)
-        {
+        if (!blockNode) {
             blockEntity = m_sceneManager->createEntity("Cube_mesh");
             blockNode = m_chunkNode->createChildSceneNode(
-                Ogre::Vector3(x * BLOCK_SIZE, y * BLOCK_SIZE, z * BLOCK_SIZE)
+                    Ogre::Vector3(x * BLOCK_SIZE, y * BLOCK_SIZE, z * BLOCK_SIZE)
             );
             blockNode->setScale(10, 10, 10);
             blockNode->attachObject(blockEntity);
-        }
-        else
-        {
-            blockEntity = dynamic_cast<Ogre::Entity*>(
-                blockNode->getAttachedObject(0)
+        } else {
+            blockEntity = dynamic_cast<Ogre::Entity *>(
+                    blockNode->getAttachedObject(0)
             );
             assert(blockEntity);
         }
-        if (newBlock == BlockType::STONE)
-        {
+        if (newBlock == BlockType::STONE) {
             blockEntity->setMaterialName("Cube/Stone");
-        }
-        else
-        {
+        } else {
             blockEntity->setMaterialName("Cube/Dirt");
         }
     }
 }
 
-Ogre::SceneNode* WorldChunk::getChunkNode()
-{
+Ogre::SceneNode *WorldChunk::getChunkNode() {
     return m_chunkNode;
 }
 
-const Ogre::SceneNode* WorldChunk::getChunkNode() const
-{
+const Ogre::SceneNode *WorldChunk::getChunkNode() const {
     return m_chunkNode;
 }
 
-void WorldChunk::removeBlock(Ogre::Vector3 fromPos, Ogre::Quaternion dir)
-{
+void WorldChunk::removeBlock(Ogre::Vector3 fromPos, Ogre::Quaternion dir) {
     // raycast de frompos(camera) vers une direction (dir)
 
 
