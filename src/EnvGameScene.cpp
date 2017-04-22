@@ -135,17 +135,16 @@ void EnvGameScene::createScene(void)
     cube.convertToMesh("Cube_mesh");
 
     Ogre::SceneNode* rootNode = m_sceneManager->getRootSceneNode();
+    m_world = new WorldChunk(rootNode, m_sceneManager);
 
     for (int i = 0; i < 10; ++i)
     {
         for (int j = 0; j < 10; ++j)
         {
-            Ogre::Entity* newCube = m_sceneManager->createEntity("Cube_mesh");
-            Ogre::SceneNode* node = rootNode->createChildSceneNode();
+            if (i == j)
+            continue;
 
-            node->setScale(10, 10, 10);
-            node->setPosition(i * 10 - 50, 0, j * 10 - 50);
-            node->attachObject(newCube);
+            m_world->setBlock(i, 0, j, BlockType::DIRT);
         }
     }
 }

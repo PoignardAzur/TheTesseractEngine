@@ -8,6 +8,8 @@
 #include <SdkTrays.h>
 #include <SdkCameraMan.h>
 
+#include "WorldChunk.hpp"
+
 class EnvGameScene
 {
 public:
@@ -36,6 +38,8 @@ private:
     Ogre::OverlaySystem* m_overlaySystem = nullptr;
 
     OgreBites::SdkCameraMan* m_cameraMan = nullptr;
+
+    WorldChunk* m_world = nullptr;
 
     //Ogre::Mesh* m_cube = nullptr;
 };

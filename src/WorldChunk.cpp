@@ -4,7 +4,7 @@
 #include <OgreEntity.h>
 #include <cassert>
 
-WorldChunk::WorldChunk(Ogre::SceneNode* chunkNode)
+WorldChunk::WorldChunk(Ogre::SceneNode* chunkNode, Ogre::SceneManager* sceneManager)
 {
     for (auto& block : m_blockIds)
     {
@@ -15,6 +15,7 @@ WorldChunk::WorldChunk(Ogre::SceneNode* chunkNode)
         node = nullptr;
     }
     m_chunkNode = chunkNode;
+    m_sceneManager = sceneManager;
 }
 
 BlockType WorldChunk::getBlock(size_t x, size_t y, size_t z) const
@@ -37,8 +38,7 @@ void WorldChunk::setBlock(size_t x, size_t y, size_t z, BlockType newBlock)
 
         if (!blockNode)
         {
-            // TODO
-            //blockEntity = m_sceneManager->createEntity("Cube_mesh");
+            blockEntity = m_sceneManager->createEntity("Cube_mesh");
             blockNode = m_chunkNode->createChildSceneNode(
                 Ogre::Vector3(x * BLOCK_SIZE, y * BLOCK_SIZE, z * BLOCK_SIZE)
             );
