@@ -96,17 +96,15 @@ if (NOT OGRE_BUILD_PLATFORM_IPHONE)
 endif()
 
 set(HDRS
-	./TutorialApplication.h
-    ./CubeGameScene.h
-    ./EnvGameScene.h
-    ./WorldChunk.h
+  ./src/TutorialApplication.hpp
+  ./src/EnvGameScene.hpp
+  ./src/WorldChunk.hpp
 )
 
 set(SRCS
-	./TutorialApplication.cpp
-	./CubeGameScene.cpp
-    ./EnvGameScene.cpp
-    ./WorldChunk.cpp
+  ./src/TutorialApplication.cpp
+  ./src/EnvGameScene.cpp
+  ./src/WorldChunk.cpp
 )
 
 include_directories( ${OIS_INCLUDE_DIRS}

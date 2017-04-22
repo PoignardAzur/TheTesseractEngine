@@ -1,6 +1,7 @@
 
-#include "WorldChunk.h"
+#include "WorldChunk.hpp"
 
+#include <OgreEntity.h>
 #include <cassert>
 
 WorldChunk::WorldChunk(Ogre::SceneNode* chunkNode)
@@ -24,7 +25,7 @@ BlockType WorldChunk::getBlock(size_t x, size_t y, size_t z) const
 void WorldChunk::setBlock(size_t x, size_t y, size_t z, BlockType newBlock)
 {
     m_blockIds[x + y * CHUNK_SIZE + z * CHUNK_SIZE * CHUNK_SIZE] = newBlock;
-    (Ogre::SceneNode*)& blockNode = m_blockNodes[x + y * CHUNK_SIZE + z * CHUNK_SIZE * CHUNK_SIZE];
+    Ogre::SceneNode*& blockNode = m_blockNodes[x + y * CHUNK_SIZE + z * CHUNK_SIZE * CHUNK_SIZE];
 
     if (blockNode && newBlock == BlockType::AIR)
     {
@@ -36,7 +37,8 @@ void WorldChunk::setBlock(size_t x, size_t y, size_t z, BlockType newBlock)
 
         if (!blockNode)
         {
-            blockEntity = m_sceneManager->createEntity("Cube_mesh");
+            // TODO
+            //blockEntity = m_sceneManager->createEntity("Cube_mesh");
             blockNode = m_chunkNode->createChildSceneNode(
                 Ogre::Vector3(x * BLOCK_SIZE, y * BLOCK_SIZE, z * BLOCK_SIZE)
             );

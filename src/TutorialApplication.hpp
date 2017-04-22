@@ -11,7 +11,7 @@
 #include <OISKeyboard.h>
 #include <OISMouse.h>
 
-#include "EnvGameScene.h"
+#include "EnvGameScene.hpp"
 
 class TutorialApplication :
     public Ogre::FrameListener,

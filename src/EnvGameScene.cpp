@@ -1,6 +1,6 @@
 
 #include <OgreManualObject.h>
-#include "EnvGameScene.h"
+#include "EnvGameScene.hpp"
 
 EnvGameScene::EnvGameScene()
 {

@@ -1,5 +1,5 @@
 
-#include "TutorialApplication.h"
+#include "TutorialApplication.hpp"
 #include <OgreConfigFile.h>
 #include <OgreWindowEventUtilities.h>
 
@@ -154,7 +154,7 @@ bool TutorialApplication::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseBu
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #define WIN32_LEAN_AND_MEAN
-#include "windows.h"
+#include "windows.hpp"
 #endif
 
 extern "C"
