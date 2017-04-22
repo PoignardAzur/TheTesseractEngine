@@ -75,5 +75,8 @@ const Ogre::SceneNode* WorldChunk::getChunkNode() const
 
 void WorldChunk::removeBlock(Ogre::Vector3 fromPos, Ogre::Quaternion dir)
 {
+    // raycast de frompos(camera) vers une direction (dir)
+
+
 
 }
