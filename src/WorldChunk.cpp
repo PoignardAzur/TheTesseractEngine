@@ -15,12 +15,21 @@ WorldChunk::WorldChunk(Ogre::SceneNode *chunkNode, Ogre::SceneManager *sceneMana
 }
 
 BlockType WorldChunk::getBlock(size_t x, size_t y, size_t z) const {
+    // Out of Range Check
+    long int target = x + y * CHUNK_SIZE + z * CHUNK_SIZE * CHUNK_SIZE;
+    if (target < 0 || target > static_cast<long int>((CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE) - 1))
+        return BlockType::AIR;
+    // Out of Range Check
+
     return m_blockIds[x + y * CHUNK_SIZE + z * CHUNK_SIZE * CHUNK_SIZE];
 }
 
 void WorldChunk::setBlock(size_t x, size_t y, size_t z, BlockType newBlock) {
-
-    // TODO : Check if out of range
+    // Out of Range Check
+    long int target = x + y * CHUNK_SIZE + z * CHUNK_SIZE * CHUNK_SIZE;
+    if (target < 0 || target > static_cast<long int>((CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE) - 1))
+        return;
+    // Out of Range Check
 
     m_blockIds[x + y * CHUNK_SIZE + z * CHUNK_SIZE * CHUNK_SIZE] = newBlock;
     Ogre::SceneNode *&blockNode = m_blockNodes[x + y * CHUNK_SIZE + z * CHUNK_SIZE * CHUNK_SIZE];
@@ -63,9 +72,11 @@ const Ogre::SceneNode *WorldChunk::getChunkNode() const {
 void WorldChunk::removeBlock(Ogre::Vector3 fromPos, Ogre::Vector3 dir) {
     Ogre::Vector3 toCheck = fromPos;
     BlockType hit = BlockType::AIR;
-    float max_range = 1000.0f;
+
+    // Raycasting Configuration
+    float max_range = 1000.0f; // define the range between the camera and the farest block that can be destroyed
     float current_range = 0.0f;
-    float precision = 0.05f;
+    float precision = 0.05f; // The more accurate the raycasting is the more resources it will consume, be careful with this one
 
     size_t X = 0;
     size_t Y = 0;
@@ -75,6 +86,7 @@ void WorldChunk::removeBlock(Ogre::Vector3 fromPos, Ogre::Vector3 dir) {
 
         toCheck += (dir * precision);
 
+        // Scaling to block grid
         X = static_cast<int>(toCheck.x) / BLOCK_SIZE;
         Y = static_cast<int>(toCheck.y) / BLOCK_SIZE;
         Z = static_cast<int>(toCheck.z) / BLOCK_SIZE;
